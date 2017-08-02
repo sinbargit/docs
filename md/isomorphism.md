@@ -84,7 +84,7 @@ router.get('/', (req, res, next) => {
 ```
 res.render('index/view', renderData)
 ```
-### 4.token
+### 4.token cache
 #### 使用Memcached框架。
 ```
 newAuthToken (username, password, ip) {
