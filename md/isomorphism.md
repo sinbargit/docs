@@ -2,17 +2,17 @@
 
 ## 流程对比图:
 
-![Alt text](../image/coupling.png)
+![Alt text](https://raw.githubusercontent.com/sinbargit/docs/master/image/coupling.png)
 ###### 基于PHP的实现方式
 ------------
-![Alt text](../image/separation.png)
+![Alt text](https://raw.githubusercontent.com/sinbargit/docs/master/image/separation.png)
 ###### 基于nodeServer的实现方式
 -------------
 ## node层代码实现
 ### 目前提供四块功能：server(日志、响应码、安全策略等)， route， HTML静态模板与JSON API， token缓存。
 
 ### 1. server
-#### 由express framework 提供，该框架是node 层核心框架通过增加middleware完善功能，主要middleware有
+#### 由express framework(https://expressjs.com) 提供，该框架是node 层核心框架,通过增加middleware完善功能，主要middleware有
 * helmet：安全策略
 * compression：request处理
 * wrapRender：提供默认数据
