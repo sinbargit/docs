@@ -1,0 +1,18 @@
+@startuml
+
+note over static, PHP
+	耦合
+end note
+note over backend, PHP
+	编译PHP消耗性能
+end note
+static -> PHP:template
+PHP -> static:data
+backend -> PHP:compile
+
+box "Server" #LightBlue
+	participant PHP
+	participant backend
+end box
+
+@enduml

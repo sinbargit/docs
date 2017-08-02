@@ -1,0 +1,33 @@
+@startuml
+
+box "front-end" #LightBlue
+	participant static
+	participant nodeServer
+end box
+
+note over static, nodeServer
+	同构
+	（重用框架,模板,逻辑等代码）
+end note
+
+note over nodeServer #FFAAAA
+	返回静态html，返回异步json,
+	维系路由、token、cache...
+end note
+
+box "back-end" #Gray
+	participant backend
+end box
+note over backend, nodeServer
+	restful API,性能提升，前后端解耦
+end note
+static -> nodeServer:同步请求
+nodeServer -> static:response html
+static --> nodeServer:异步请求
+nodeServer --> static:response json
+nodeServer -> backend:接口
+backend -> nodeServer:json data
+
+
+
+@enduml
