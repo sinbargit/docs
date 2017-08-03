@@ -9,7 +9,7 @@
 ###### 基于nodeServer的实现方式
 -------------
 ## node层代码实现
-### 目前提供四块功能：server(日志、响应码、安全策略等)， route， HTML静态模板与JSON API， token缓存。
+### 目前提供四块功能：nodeServer(日志、响应码、安全策略等)， route， HTML静态模板与JSON API， token缓存。
 
 ![Alt text](https://raw.githubusercontent.com/sinbargit/docs/master/image/module.png)
 
