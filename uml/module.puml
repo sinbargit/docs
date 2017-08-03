@@ -1,0 +1,47 @@
+@startuml
+
+package "client" {
+[browser]
+}
+
+package "node Server" {
+[route]
+cloud "html template" as h{
+[page cache]
+[模板引擎]
+[初始化数据]
+[cache page]
+cacheCheck-->[page cache]:hit todo:cache 策略待定
+cacheCheck-->[初始化数据]:none
+[初始化数据]-->[模板引擎]
+[模板引擎]-->[cache page]
+}
+cloud middlewares{
+[helmet]
+[compression]
+[wrapRender]
+[logger]
+[bodyParser]
+[cookieParser]
+}
+cloud service{
+[sign in/up]
+[data]
+[token cache]
+[sign in/up]-->[token cache]
+checkToken-->[data]
+}
+[static files]
+[route]-->cacheCheck:请求完整页面
+[route]-->service:异步业务，如登录、GET JSON
+[route]-->[static files]:静态资源，如图片
+}
+package "back-end"{
+[API]
+}
+[browser]-->middlewares:HTTP(S)
+middlewares-->[route]
+[data]--[API]
+[sign in/up]--[API]
+[初始化数据]--[API]
+@enduml

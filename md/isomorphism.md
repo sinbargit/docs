@@ -11,6 +11,8 @@
 ## node层代码实现
 ### 目前提供四块功能：server(日志、响应码、安全策略等)， route， HTML静态模板与JSON API， token缓存。
 
+![Alt text](https://raw.githubusercontent.com/sinbargit/docs/master/image/module.png)
+
 ### 1. nodeServer
 #### 由express framework(https://expressjs.com) 提供，该框架是node 层核心框架,通过增加middleware完善功能，主要middleware有
 * helmet：安全策略
