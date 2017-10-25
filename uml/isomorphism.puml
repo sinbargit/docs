@@ -1,0 +1,41 @@
+@startuml
+    rectangle directory {
+        (root)--(api)
+         note top: 异步API接口
+        (root)--(package)
+         note bottom: 打包脚本
+        (root)--(resource)
+        note top: 静态资源文件
+        (resource)--([project name])
+        note bottom: 具体项目对应静态资源文件 根据现有官网业务 提供多项目支持
+        (resource)--(dest)
+        note top: 编译后静态资源文件
+        (resource)--(common)
+        note bottom: 公用静态资源
+        (root)--(router)
+        note top: 路由分发
+        (root)--(service)
+        note bottom: 公用服务模块
+        (root)--(webcontent)
+        note top: 业务相关模块
+        (webcontent)--(project)
+        note bottom: 根据现有官网业务 提供多项目支持 存放若干项目的目录
+        (webcontent)--(webcontent/common)
+        note top: 多项目公用模板
+      }
+@enduml
+
+@startuml
+package pcw{
+  request --> [index.js]
+  [index.js] --> [router/page.router.js]
+  [index.js] --> [router/api.router.js]
+  [router/page.router.js] --> [redis]
+  note bottom: hisCache.planB = function(){};//未命中cache则生成新页面
+  [router/page.router.js] --> [webcontent/project/project_name/controller/page_name/index.js]: 未命中cache则生成新页面 根据path,到对应的Project
+  [webcontent/project/project_name/controller/page_name/index.js]
+  note bottom: return new Promise(function (resolve) {resolve(json);})};
+  [webcontent/project/project_name/controller/page_name/index.js] --> [api] :由api获取数据
+  [webcontent/project/project_name/controller/page_name/index.js] --> [webcontent/project/project_name/pages/page_name/(template)] :获取对应模板
+}
+@enduml

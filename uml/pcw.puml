@@ -1,0 +1,41 @@
+@startuml
+
+package pcw{
+  webpack as [index.js(webpack-dev-middleware)]
+  note right: webpack自动将修改后静态文件编译进内存。\n打包逻辑为：静态资源经过编译后加上Hash后缀，\n为了防止每次修改html里面资源路径以及节省性能，\n使用这个插件
+  request --> [webpack]
+  [webpack] --> [routes/index.js]
+  [routes/index.js] --> [controller.js]: 根据path
+  [controller.js]
+  note right: router.get('/', (req, res, next) => {req.render(...)})
+  [controller.js] --> [api]:对应的api ./_webapi/index/model/....js
+  note right: fetchCache(1800, 'index/focusRoll') 获取缓存 api,或者fetch新的api
+  [controller.js] --> [ejs]:对应的模板  ./index/view.ejs
+}
+
+
+@enduml
+
+@startuml
+
+    rectangle directory {
+        (pcw)--(_server)
+         note top: 基础server，包含express,middleware,打包,config
+        (pcw)--(dest)
+         note bottom: 编译后的静态资源文件(js css)
+        (pcw)--(routes)
+        note top: 路由，包括页面路由与异步api路由
+        (routes)--(_webapi)
+        note bottom: 异步api路由
+        (routes)--(component)
+        note bottom: 公用组件
+        (routes)--(common)
+        note bottom: 公用库
+        (routes)--(others...)
+        note bottom: 页面路由
+        (pcw)--(routes.min)
+         note bottom: 编译后的路由
+        (pcw)--(src)
+         note top: 浏览器端代码
+      }
+@enduml
