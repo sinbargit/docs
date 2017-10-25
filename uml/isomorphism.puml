@@ -26,10 +26,11 @@
 @enduml
 
 @startuml
-package pcw{
+package isomorphism{
   request --> [index.js]
-  [index.js] --> [router/page.router.js]
-  [index.js] --> [router/api.router.js]
+  [index.js] --> [router/page.router.js]: 页面
+  [index.js] --> [router/api.router.js]: 异步api
+  [index.js] --> [router/resource.router.js]: 静态资源
   [router/page.router.js] --> [redis]
   note bottom: hisCache.planB = function(){};//未命中cache则生成新页面
   [router/page.router.js] --> [webcontent/project/project_name/controller/page_name/index.js]: 未命中cache则生成新页面 根据path,到对应的Project
